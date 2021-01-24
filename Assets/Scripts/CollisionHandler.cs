@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
+    private void Start()
+    {
+                           
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Finish")
         {
-            Debug.Log("abc");
+            FindObjectOfType<GameManager>().DisableCarMovement(gameObject);
+            FindObjectOfType<GameManager>().IncreaseCarSpawnersIndex();
         }
     }
 
@@ -16,7 +22,6 @@ public class CollisionHandler : MonoBehaviour
     {
         if (other.gameObject.tag == "Car" || other.gameObject.tag == "Obstacle")
         {
-            Debug.Log("abc");
             Destroy(gameObject);
         }
     }
