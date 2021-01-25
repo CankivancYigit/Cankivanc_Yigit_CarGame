@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] CarSpawner[] carSpawners; //Hiyerarsideki butun CarSpawner nesnelerini bir diziye atiyoruz.
+    [SerializeField] GameObject[] finishLines; //Hiyerarsideki butun Finish nesnelerini bir diziye atiyoruz.
     int carSpawnersIndex;
+    int finishLineIndex;
     [SerializeField] GameObject resumePlayingScreen;
     void Start()
     {
@@ -33,16 +35,28 @@ public class GameManager : MonoBehaviour
     public void SpawnCarAndControlSpawnerIndex() 
     {
         carSpawners[carSpawnersIndex].SpawnCar();
-        carSpawnersIndex++;
+        //carSpawnersIndex++;
         if (carSpawnersIndex == 8)
         {
             //LoadNextScene();
         }
     }
 
+    public void FinishLineSwitch()
+    {
+        finishLines[finishLineIndex].SetActive(false);
+        finishLineIndex++;
+        finishLines[finishLineIndex].SetActive(true);
+    }
+
     public void DisableCarController(GameObject gameObject) //gameObject'e ait olan CarController Scriptini deaktif eder
     {
         gameObject.GetComponent<CarController>().enabled = false;
+    } 
+    
+    public void DeleteCollisionHandler(GameObject gameObject) //gameObject'e ait olan CollisionHandler Scriptini siler
+    {
+        Destroy(gameObject.GetComponent<CollisionHandler>());
     }
 
     public void AddNavMeshAgent() 
@@ -61,7 +75,7 @@ public class GameManager : MonoBehaviour
             gameObjects[i].transform.position = gameObjects[i].GetComponent<CarMovement>().GetStartPosition();
             gameObjects[i].transform.rotation = gameObjects[i].GetComponent<CarMovement>().GetStartRotation();
         }
-        //carSpawnersIndex++;
+        carSpawnersIndex++;
     }
 
     public void ResetPositionsWhenCollide(List<GameObject> gameObjects)

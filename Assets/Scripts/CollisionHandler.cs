@@ -5,6 +5,7 @@ using UnityEngine;
 public class CollisionHandler : MonoBehaviour
 {
     static List<GameObject> carList = new List<GameObject>();
+    //GameManager gameManager = new GameManager();
     private void Start()
     {
                            
@@ -16,8 +17,10 @@ public class CollisionHandler : MonoBehaviour
         {
             carList.Add(gameObject);
             FindObjectOfType<GameManager>().DisableCarController(gameObject);
+            FindObjectOfType<GameManager>().DeleteCollisionHandler(gameObject);
             FindObjectOfType<GameManager>().ChangeCarTag(gameObject);
             FindObjectOfType<GameManager>().ResetPositions(carList);
+            FindObjectOfType<GameManager>().FinishLineSwitch();
             //FindObjectOfType<GameManager>().AddNavMeshAgent(gameObject,other.gameobject); metoda other.gameobject.position eklenecek
             FindObjectOfType<GameManager>().SpawnCarAndControlSpawnerIndex();
             FindObjectOfType<GameManager>().StopGameWithPanel();
@@ -26,7 +29,7 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "UsedCar")
+        if (other.gameObject.tag == "UsedCar" || other.gameObject.tag == "Obstacle")
         {
             carList.Add(gameObject);
             GameObject[] cars = GameObject.FindGameObjectsWithTag("UsedCar");
@@ -36,11 +39,6 @@ public class CollisionHandler : MonoBehaviour
             }
             FindObjectOfType<GameManager>().ResetPositionsWhenCollide(carList);
             FindObjectOfType<GameManager>().StopGameWithPanel();
-        }
-
-        if (other.gameObject.tag == "Obstacle")
-        {
-
         }
     }
 }
