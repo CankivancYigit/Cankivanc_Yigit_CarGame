@@ -93,13 +93,14 @@ GameObject:
   - component: {fileID: 1011369319579655059}
   - component: {fileID: 1011369319579655056}
   - component: {fileID: 1011369319579655057}
+  - component: {fileID: 1011369319579655058}
   - component: {fileID: 1011369319579655070}
+  - component: {fileID: 1735757578793506686}
   - component: {fileID: 1011369319579655061}
   - component: {fileID: 1011369319579655060}
-  - component: {fileID: 1011369319579655058}
   m_Layer: 0
   m_Name: Car
-  m_TagString: Car
+  m_TagString: PlayerCar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,52 +185,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1011369319579655070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011369319579655071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5a9302b820f474eb6e2de88648d884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateAmount: 1
-  moveSpeed: 3
---- !u!114 &1011369319579655061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011369319579655071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1d671dd8cffb84b9d155c9fa9a360a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carSpawners: []
---- !u!114 &1011369319579655060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011369319579655071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 110cc84aa6440e5469f55d4f27c2ea9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1011369319579655058
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -256,3 +218,53 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.148879}
   m_EdgeRadius: 0
+--- !u!114 &1011369319579655070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011369319579655071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5a9302b820f474eb6e2de88648d884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+--- !u!114 &1735757578793506686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011369319579655071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713f071cba295704692c15875cc13709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 1
+--- !u!114 &1011369319579655061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011369319579655071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1d671dd8cffb84b9d155c9fa9a360a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1011369319579655060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011369319579655071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110cc84aa6440e5469f55d4f27c2ea9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

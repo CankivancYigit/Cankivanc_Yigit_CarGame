@@ -5,28 +5,19 @@ using UnityEngine;
 public class CarMovement : MonoBehaviour
 {
     Rigidbody2D rgb;
-    [SerializeField] float rotateAmount = 1f;
     [SerializeField] float moveSpeed = 3f;
-
+    private Vector3 startPosition;
+    private Quaternion startRotation;
     void Start()
     {
         rgb = GetComponent<Rigidbody2D>();
+        startPosition = transform.position;
+        startRotation = transform.rotation;
     }
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (mousePos.x < 0)
-            {
-                TurnLeft();
-            }
-            else if (mousePos.x > 0)
-            {
-                TurnRight();
-            }
-        }
+       
     }
 
     private void FixedUpdate()
@@ -39,12 +30,15 @@ public class CarMovement : MonoBehaviour
         rgb.velocity = transform.up * moveSpeed;
     }
 
-    void TurnLeft()
+    public Vector3 GetStartPosition()
     {
-        transform.Rotate(0, 0, rotateAmount);
+        transform.position = startPosition;
+        return startPosition;
     }
-    void TurnRight()
+
+    public Quaternion GetStartRotation()
     {
-        transform.Rotate(0, 0, -rotateAmount);
+        transform.rotation = startRotation;
+        return startRotation;
     }
 }

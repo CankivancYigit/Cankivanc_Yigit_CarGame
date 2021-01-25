@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] CarSpawner[] carSpawners; //Hiyerarsideki butun CarSpawner nesnelerini bir diziye atiyoruz.
     int carSpawnersIndex;
-    
+    [SerializeField] GameObject resumePlayingScreen;
     void Start()
     {
         StopGame();
@@ -18,29 +19,73 @@ public class GameManager : MonoBehaviour
        
     }
 
-    public void StartGame()
+    public void FirstGameStart()
     {          
         Time.timeScale = 1f;
-        //FindObjectOfType<CarSpawner>().SpawnCar();
+        carSpawners[carSpawnersIndex].SpawnCar();
     }
 
-    private void StopGame()
+    public void StopGame()
     {
         Time.timeScale = 0f;
     }
 
-    public void IncreaseCarSpawnersIndex() 
+    public void SpawnCarAndControlSpawnerIndex() 
     {
         carSpawners[carSpawnersIndex].SpawnCar();
         carSpawnersIndex++;
-        if (carSpawnersIndex == 7)
+        if (carSpawnersIndex == 8)
         {
             //LoadNextScene();
         }
     }
 
-    public void DisableCarMovement(GameObject gameObject) //gameObject'e ait olan CarMovement Scriptini deaktif eder
+    public void DisableCarController(GameObject gameObject) //gameObject'e ait olan CarController Scriptini deaktif eder
     {
-        gameObject.GetComponent<CarMovement>().enabled = false;
+        gameObject.GetComponent<CarController>().enabled = false;
+    }
+
+    public void AddNavMeshAgent() 
+    {
+
+    }
+
+    public void ResetPositions(List<GameObject> gameObjects)
+    {
+        //gameObject.transform.position = CarMovement.startPosition;
+        
+        for (int i = 0; i < gameObjects.Count; i++)
+        {
+            //gameObjects[i].transform.position = carSpawners[i].transform.position;
+            //gameObjects[i].transform.rotation = carSpawners[i].transform.rotation;
+            gameObjects[i].transform.position = gameObjects[i].GetComponent<CarMovement>().GetStartPosition();
+            gameObjects[i].transform.rotation = gameObjects[i].GetComponent<CarMovement>().GetStartRotation();
+        }
+        //carSpawnersIndex++;
+    }
+
+    public void ResetPositionsWhenCollide(List<GameObject> gameObjects)
+    {
+        for (int i = 0; i < gameObjects.Count; i++)
+        {
+            gameObjects[i].transform.position = gameObjects[i].GetComponent<CarMovement>().GetStartPosition();
+            gameObjects[i].transform.rotation = gameObjects[i].GetComponent<CarMovement>().GetStartRotation();
+        }
+    }
+
+    public void StartGameAgain()
+    {
+        Time.timeScale = 1f;
+    }
+
+    public void StopGameWithPanel()
+    {
+        resumePlayingScreen.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void ChangeCarTag(GameObject gameObject)
+    {
+        gameObject.tag = "UsedCar";
     }
 }
