@@ -3,17 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] CarSpawner[] carSpawners; //Hiyerarsideki butun CarSpawner nesnelerini bir diziye atiyoruz.
     [SerializeField] GameObject[] finishLines; //Hiyerarsideki butun Finish nesnelerini bir diziye atiyoruz.
+    List<GameObject> carList;
     int carSpawnersIndex;
     int finishLineIndex;
     [SerializeField] GameObject resumePlayingScreen;
+    LevelLoader levelLoader;
+
+    public List<GameObject> CarList { get => carList; set => carList = value; }
+
     void Start()
     {
         StopGame();
+        levelLoader = FindObjectOfType<LevelLoader>();
+        CarList = new List<GameObject>();
     }
 
     void Update()
@@ -32,18 +40,23 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    public void SpawnCarAndControlSpawnerIndex() 
+    public void SpawnCar() 
     {
-        carSpawners[carSpawnersIndex].SpawnCar();
-        //carSpawnersIndex++;
         if (carSpawnersIndex == 8)
         {
-            //LoadNextScene();
+            carSpawnersIndex = 0;
         }
+        carSpawners[carSpawnersIndex].SpawnCar();
+        //carSpawnersIndex++;
     }
 
     public void FinishLineSwitch()
     {
+        if (finishLineIndex == 7)
+        {
+            levelLoader.LoadNextScene();
+            finishLineIndex = 0;
+        }
         finishLines[finishLineIndex].SetActive(false);
         finishLineIndex++;
         finishLines[finishLineIndex].SetActive(true);
@@ -70,13 +83,17 @@ public class GameManager : MonoBehaviour
     }
 
     public void ResetPositions(List<GameObject> gameObjects)
-    {   
+    {
+        foreach (var item in gameObjects)
+        {
+            item.GetComponent<WaypointsCollector>().moveSpeed = 2f;
+        }
         for (int i = 0; i < gameObjects.Count; i++)
         {
             gameObjects[i].transform.position = gameObjects[i].GetComponent<CarMovement>().GetStartPosition();
             gameObjects[i].transform.rotation = gameObjects[i].GetComponent<CarMovement>().GetStartRotation();
         }
-        carSpawnersIndex++;
+        carSpawnersIndex++;    
     }
 
     public void ResetPositionsWhenCollide(List<GameObject> gameObjects)

@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class WaypointsCollector : MonoBehaviour
 {
-    [SerializeField] List<Transform> waypoints;
-    private float moveSpeed = 2f;
+    [SerializeField] List<Transform> waypoints = new List<Transform>();
+    public float moveSpeed = 2f;
     bool isFollowing = false;
-    private int waypointIndex = 1;
+    private int waypointIndex = 0;
     public List<Transform> Waypoints { get => waypoints; set => waypoints = value; }
     public bool IsFollowing { get => isFollowing; set => isFollowing = value; }
 
     void Start()
-    {
-        waypoints = new List<Transform>();
-        transform.position = waypoints[waypointIndex].transform.position;     
+    {  
+       // transform.position = waypoints[waypointIndex].transform.position;     
     }
 
     void Update()
@@ -27,18 +26,18 @@ public class WaypointsCollector : MonoBehaviour
 
     private void FollowPath()
     {
-        transform.position = Vector2.MoveTowards(transform.position,
-            waypoints[waypointIndex].transform.position,
-            moveSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position,
+                waypoints[waypointIndex].transform.position,
+                moveSpeed * Time.deltaTime);
 
-        if (transform.position == waypoints[waypointIndex].transform.position)
-        {
-            waypointIndex += 1;
-        }
+            if (transform.position == waypoints[waypointIndex].transform.position)
+            {
+                waypointIndex += 1;
+            }
 
-        if (waypointIndex == waypoints.Count)
-        {
-            moveSpeed = 0;
-        }
+            if (waypointIndex == waypoints.Count -1)
+            {
+                moveSpeed = 0;
+            }
     }
 }

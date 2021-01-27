@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5a9302b820f474eb6e2de88648d884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 4
 --- !u!114 &1735757578793506686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,3 +295,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
+  moveSpeed: 2

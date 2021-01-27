@@ -11,7 +11,7 @@ public class WaypointSpawner : MonoBehaviour
     {
         waypointsCollector = FindObjectOfType<WaypointsCollector>();
         waypoint = new GameObject("Waypoints To Follow");
-        InvokeRepeating("CreateWaypointAndAddToWaypointsList", 0f, 1f);
+        InvokeRepeating("CreateWaypointAndAddToWaypointsList", 0f, 0.3f);
     }
 
     // Update is called once per frame
@@ -22,7 +22,8 @@ public class WaypointSpawner : MonoBehaviour
 
     void CreateWaypointAndAddToWaypointsList()
     {
-        GameObject newWaypoints = Instantiate(waypoint, transform.position, transform.rotation);
+       // waypointsCollector.Waypoints = new List<Transform>(); //hızlı gitmeye engel
+        GameObject newWaypoints = Instantiate(waypoint, transform.position, transform.rotation); 
         waypointsCollector.Waypoints.Add(newWaypoints.transform); 
     }
 
