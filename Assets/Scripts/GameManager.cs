@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
        
     }
 
-    public void FirstGameStart()
+    public void FirstGameStart() //Level ilk acildiginda ekrana tiklama ile calisir
     {          
         Time.timeScale = 1f;
         carSpawners[carSpawnersIndex].SpawnCar();
@@ -52,26 +52,27 @@ public class GameManager : MonoBehaviour
     public void DisableCarController(GameObject gameObject) //gameObject'e ait olan CarController Scriptini deaktif eder
     {
         gameObject.GetComponent<CarController>().enabled = false;
-    } 
-    
+    }
+
+    public void DisableCarMovement(GameObject gameObject) //gameObject'e ait olan CarMovement Scriptini deaktif eder
+    {
+        gameObject.GetComponent<CarMovement>().enabled = false;
+    }
+
     public void DeleteCollisionHandler(GameObject gameObject) //gameObject'e ait olan CollisionHandler Scriptini siler
     {
         Destroy(gameObject.GetComponent<CollisionHandler>());
     }
 
-    public void AddNavMeshAgent() 
+    public void DeleteWaypointSpawner(GameObject gameObject) //gameObject'e ait olan WaypointSpawner Scriptini siler
     {
-
+        Destroy(gameObject.GetComponent<WaypointSpawner>());
     }
 
     public void ResetPositions(List<GameObject> gameObjects)
-    {
-        //gameObject.transform.position = CarMovement.startPosition;
-        
+    {   
         for (int i = 0; i < gameObjects.Count; i++)
         {
-            //gameObjects[i].transform.position = carSpawners[i].transform.position;
-            //gameObjects[i].transform.rotation = carSpawners[i].transform.rotation;
             gameObjects[i].transform.position = gameObjects[i].GetComponent<CarMovement>().GetStartPosition();
             gameObjects[i].transform.rotation = gameObjects[i].GetComponent<CarMovement>().GetStartRotation();
         }
@@ -101,5 +102,18 @@ public class GameManager : MonoBehaviour
     public void ChangeCarTag(GameObject gameObject)
     {
         gameObject.tag = "UsedCar";
+    }
+
+    public void ChangeRigidBodyToStatic(GameObject gameObject)
+    {
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+    }
+
+    public void EnableCarsPathFollowing(List<GameObject> gameObjects)
+    {
+        for (int i = 0; i < gameObjects.Count; i++)
+        {
+            gameObjects[i].GetComponent<WaypointsCollector>().IsFollowing = true;
+        }
     }
 }

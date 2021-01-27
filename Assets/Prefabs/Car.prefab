@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 1735757578793506686}
   - component: {fileID: 1011369319579655061}
   - component: {fileID: 1011369319579655060}
+  - component: {fileID: 3343892259430319631}
+  - component: {fileID: 6061237858705546827}
   m_Layer: 0
   m_Name: Car
   m_TagString: PlayerCar
@@ -183,10 +185,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -230,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5a9302b820f474eb6e2de88648d884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 2
 --- !u!114 &1735757578793506686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713f071cba295704692c15875cc13709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1
+  rotateSpeed: 150
 --- !u!114 &1011369319579655061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,3 +270,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110cc84aa6440e5469f55d4f27c2ea9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3343892259430319631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011369319579655071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50192e6bf4dac24f8a278d45ceffca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6061237858705546827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011369319579655071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38257b21738af2542a03ef032c2135be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints: []

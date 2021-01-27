@@ -8,6 +8,10 @@ public class CarMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 3f;
     private Vector3 startPosition;
     private Quaternion startRotation;
+
+    //Encapsulation
+    public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+
     void Start()
     {
         rgb = GetComponent<Rigidbody2D>();
@@ -27,7 +31,7 @@ public class CarMovement : MonoBehaviour
 
     private void Move()
     {
-        rgb.velocity = transform.up * moveSpeed;
+        rgb.velocity = transform.up * MoveSpeed;
     }
 
     public Vector3 GetStartPosition()
