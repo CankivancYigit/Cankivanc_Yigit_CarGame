@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var item in gameObjects)
         {
-            item.GetComponent<WaypointsCollector>().moveSpeed = 2f;
+            item.GetComponent<WaypointsFollower>().moveSpeed = 2f;
         }
         for (int i = 0; i < gameObjects.Count; i++)
         {
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < gameObjects.Count; i++)
         {
-            gameObjects[i].GetComponent<WaypointsCollector>().IsFollowing = true;
+            gameObjects[i].GetComponent<WaypointsFollower>().IsFollowing = true;
         }
     }
 }

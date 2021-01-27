@@ -7,17 +7,13 @@ public class CollisionHandler : MonoBehaviour
      
     GameManager gameManager;
     WaypointSpawner waypointSpawner;
-    WaypointsCollector waypointsCollector;
-    LevelLoader levelLoader;
+    WaypointsFollower waypointsFollower;
     
     private void Start()
     {
-        //carList = new List<GameObject>(); startta olusturulunca araba pozisyonu basa gelmiyor
         gameManager = FindObjectOfType<GameManager>();
         waypointSpawner = FindObjectOfType<WaypointSpawner>();
-        waypointsCollector = FindObjectOfType<WaypointsCollector>();
-        levelLoader = FindObjectOfType<LevelLoader>();
-        
+        waypointsFollower = FindObjectOfType<WaypointsFollower>();  
     }
 
     private void OnTriggerEnter2D(Collider2D other)

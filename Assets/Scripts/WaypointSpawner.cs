@@ -5,11 +5,11 @@ using UnityEngine;
 public class WaypointSpawner : MonoBehaviour
 {
     GameObject waypoint;
-    WaypointsCollector waypointsCollector;
+    WaypointsFollower waypointsCollector;
 
     void Start()
     {
-        waypointsCollector = FindObjectOfType<WaypointsCollector>();
+        waypointsCollector = FindObjectOfType<WaypointsFollower>();
         waypoint = new GameObject("Waypoints To Follow");
         InvokeRepeating("CreateWaypointAndAddToWaypointsList", 0f, 0.3f);
     }
@@ -22,7 +22,7 @@ public class WaypointSpawner : MonoBehaviour
 
     void CreateWaypointAndAddToWaypointsList()
     {
-       // waypointsCollector.Waypoints = new List<Transform>(); //hızlı gitmeye engel
+       //waypointsCollector.Waypoints = new List<Transform>(); //hızlı gitmeye engel
         GameObject newWaypoints = Instantiate(waypoint, transform.position, transform.rotation); 
         waypointsCollector.Waypoints.Add(newWaypoints.transform); 
     }

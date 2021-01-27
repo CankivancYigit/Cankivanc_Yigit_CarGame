@@ -6,13 +6,13 @@ public class CarController : MonoBehaviour
 {
     [SerializeField] float rotateSpeed = 100f;
     Transform currentTransform;
-    WaypointsController waypointsController;
+   // WaypointsController waypointsController;
 
     public float RotateSpeed { get => rotateSpeed; set => rotateSpeed = value; }
 
     void Start()
     {
-        waypointsController = FindObjectOfType<WaypointsController>();
+       // waypointsController = FindObjectOfType<WaypointsController>();
         currentTransform = GetComponent<Transform>();
     }
 
