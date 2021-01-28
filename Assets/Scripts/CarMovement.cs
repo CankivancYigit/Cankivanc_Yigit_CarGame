@@ -5,7 +5,7 @@ using UnityEngine;
 public class CarMovement : MonoBehaviour
 {
     Rigidbody2D rgb;
-    [SerializeField] float moveSpeed = 3f;
+    [Tooltip("Speed for Current Driven Car")] [SerializeField] float moveSpeed = 3f;
     private Vector3 startPosition;
     private Quaternion startRotation;
 

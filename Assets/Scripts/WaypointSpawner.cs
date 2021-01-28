@@ -5,40 +5,33 @@ using UnityEngine;
 public class WaypointSpawner : MonoBehaviour
 {
     GameObject waypoint;
-    WaypointsFollower waypointsCollector;
+    WaypointsFollower waypointsFollower;
 
     void Start()
     {
-        waypointsCollector = FindObjectOfType<WaypointsFollower>();
+        waypointsFollower = FindObjectOfType<WaypointsFollower>();
         waypoint = new GameObject("Waypoints To Follow");
-        InvokeRepeating("CreateWaypointAndAddToWaypointsList", 0f, 0.3f);
-    }
+        InvokeRepeating("CreateWaypointAndAddToWaypointsList", 0f, 0.1f);    //InvokeRepeating cagrilma hizi araba ilerlerken 
+    }                                                                        //olusturulacak Waypoint sayisini belirler.
 
-    // Update is called once per frame
-    void Update()
+    void CreateWaypointAndAddToWaypointsList()      //Waypoint game objesi olusturur ve WaypointsFollower listesine ekler
     {
-        
+        GameObject newWaypoint = Instantiate(waypoint, transform.position, transform.rotation); 
+        waypointsFollower.Waypoints.Add(newWaypoint.transform); 
     }
 
-    void CreateWaypointAndAddToWaypointsList()
-    {
-       //waypointsCollector.Waypoints = new List<Transform>(); //hızlı gitmeye engel
-        GameObject newWaypoints = Instantiate(waypoint, transform.position, transform.rotation); 
-        waypointsCollector.Waypoints.Add(newWaypoints.transform); 
-    }
-
-    void StopAddingWaypointsToList()      //CreateWaypointAndAddToWaypointsList metodunun invokerepeatingini 
+    void StopAddingWaypointsToList()      //CreateWaypointAndAddToWaypointsList metodunun invokerepeating ini 
     {                                     //Collisionhandler da silebilmek icin olusturdum 
         CancelInvoke();
     }
 
-    public void DeleteAllWayPoints()
+    public void DeleteAllWaypoints()        //Kullanılan araba duvara ya da diger arabalara carpar ise  
     {    
-        for (int i = 0; i < waypointsCollector.Waypoints.Count; i++)
+        for (int i = 0; i < waypointsFollower.Waypoints.Count; i++)
         {
-            GameObject waypointsToDelete = waypointsCollector.Waypoints[i].gameObject;
+            GameObject waypointsToDelete = waypointsFollower.Waypoints[i].gameObject;
             Destroy(waypointsToDelete);
         }
-        waypointsCollector.Waypoints.Clear();
+        waypointsFollower.Waypoints.Clear();
     }
 }

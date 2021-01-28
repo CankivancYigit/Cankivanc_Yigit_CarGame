@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
             carSpawnersIndex = 0;
         }
         carSpawners[carSpawnersIndex].SpawnCar();
-        //carSpawnersIndex++;
     }
 
     public void FinishLineSwitch()
@@ -62,46 +61,52 @@ public class GameManager : MonoBehaviour
         finishLines[finishLineIndex].SetActive(true);
     }
 
-    public void DisableCarController(GameObject gameObject) //gameObject'e ait olan CarController Scriptini deaktif eder
+    public void DisableCarController(GameObject car) //car'a ait olan CarController Scriptini deaktif eder
     {
-        gameObject.GetComponent<CarController>().enabled = false;
+        car.GetComponent<CarController>().enabled = false;
     }
 
-    public void DisableCarMovement(GameObject gameObject) //gameObject'e ait olan CarMovement Scriptini deaktif eder
+    public void DisableCarMovement(GameObject car) //car'a ait olan CarMovement Scriptini deaktif eder
     {
-        gameObject.GetComponent<CarMovement>().enabled = false;
+        car.GetComponent<CarMovement>().enabled = false;
     }
 
-    public void DeleteCollisionHandler(GameObject gameObject) //gameObject'e ait olan CollisionHandler Scriptini siler
+    public void DeleteCollisionHandler(GameObject car) //car'a ait olan CollisionHandler Scriptini siler
     {
-        Destroy(gameObject.GetComponent<CollisionHandler>());
+        Destroy(car.GetComponent<CollisionHandler>());
     }
 
-    public void DeleteWaypointSpawner(GameObject gameObject) //gameObject'e ait olan WaypointSpawner Scriptini siler
+    public void DeleteWaypointSpawner(GameObject car) //car'a ait olan WaypointSpawner Scriptini siler
     {
-        Destroy(gameObject.GetComponent<WaypointSpawner>());
+        Destroy(car.GetComponent<WaypointSpawner>());
     }
 
-    public void ResetPositions(List<GameObject> gameObjects)
+    public void ResetPositions(List<GameObject> carList) //finish cizgisi gecilir ise butun aralabaların pozisyonlarinin resetlenmesini saglar
     {
-        foreach (var item in gameObjects)
+        foreach (var car in carList)
         {
-            item.GetComponent<WaypointsFollower>().moveSpeed = 2f;
+            car.GetComponent<WaypointsFollower>().WaypointIndex = 0;
+            car.GetComponent<WaypointsFollower>().moveSpeed = 2f;
         }
-        for (int i = 0; i < gameObjects.Count; i++)
+        for (int i = 0; i < carList.Count; i++)
         {
-            gameObjects[i].transform.position = gameObjects[i].GetComponent<CarMovement>().GetStartPosition();
-            gameObjects[i].transform.rotation = gameObjects[i].GetComponent<CarMovement>().GetStartRotation();
+            carList[i].transform.position = carList[i].GetComponent<CarMovement>().GetStartPosition();
+            carList[i].transform.rotation = carList[i].GetComponent<CarMovement>().GetStartRotation();
         }
-        carSpawnersIndex++;    
+        carSpawnersIndex++;    //CollisionHandler da ResetPositions SpawnCar dan once cagirildigi icin carSpawnersIndex i burada arttırdım
     }
 
-    public void ResetPositionsWhenCollide(List<GameObject> gameObjects)
+    public void ResetPositionsWhenCollide(List<GameObject> carList) //
     {
-        for (int i = 0; i < gameObjects.Count; i++)
+        foreach (var car in carList)
         {
-            gameObjects[i].transform.position = gameObjects[i].GetComponent<CarMovement>().GetStartPosition();
-            gameObjects[i].transform.rotation = gameObjects[i].GetComponent<CarMovement>().GetStartRotation();
+            car.GetComponent<WaypointsFollower>().WaypointIndex = 0;
+            car.GetComponent<WaypointsFollower>().moveSpeed = 2f;
+        }
+        for (int i = 0; i < carList.Count; i++)
+        {
+            carList[i].transform.position = carList[i].GetComponent<CarMovement>().GetStartPosition();
+            carList[i].transform.rotation = carList[i].GetComponent<CarMovement>().GetStartRotation();
         }
     }
 
@@ -110,27 +115,27 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void StopGameWithPanel()
+    public void StopGameWithPanel()  //Araba finish cizgisine deger ise ya da bir yere carpar ise ekran panelini aktif edip oyunu durdurur
     {
         resumePlayingScreen.SetActive(true);
         Time.timeScale = 0f;
     }
 
-    public void ChangeCarTag(GameObject gameObject)
+    public void ChangeCarTag(GameObject car)
     {
-        gameObject.tag = "UsedCar";
+        car.tag = "UsedCar";
     }
 
-    public void ChangeRigidBodyToStatic(GameObject gameObject)
+    public void ChangeRigidBodyToStatic(GameObject car) //araba finish cizgisini gecince Waypointleri takip edebilmesi icin rigidbody2d sini static yapar
     {
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        car.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
     }
 
-    public void EnableCarsPathFollowing(List<GameObject> gameObjects)
-    {
-        for (int i = 0; i < gameObjects.Count; i++)
+    public void EnableCarsPathFollowing(List<GameObject> carList) //Listeye eklenen arabaların eklenen Waypointleri takip edebilmeleri 
+    {                                                             //icin WaypointsFollowerlarindaki isFollowing i true yapar
+        for (int i = 0; i < carList.Count; i++)
         {
-            gameObjects[i].GetComponent<WaypointsFollower>().IsFollowing = true;
+            carList[i].GetComponent<WaypointsFollower>().IsFollowing = true;
         }
     }
 }
